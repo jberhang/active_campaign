@@ -24,9 +24,10 @@ module ActiveCampaign
       def find_account_custom_field_meta(field_label)
         response = get("/accountCustomFieldMeta")
         return nil if response.nil?
+        return nil unless response["accountCustomFieldMeta"]
         found = response["accountCustomFieldMeta"].select{|cfm| cfm["fieldLabel"] == field_label}
         found.first if found.any?
-      end     
+      end
 
       def find_account_custom_field_text_value(account_id, field_label) 
         response = find_account_custom_field_meta(field_label)
