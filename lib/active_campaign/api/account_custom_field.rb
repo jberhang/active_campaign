@@ -8,9 +8,10 @@ module ActiveCampaign
       def find_account_custom_field_data(account_id, field_id)
         response = show_account_custom_field_data(account_id)
         return nil if response.nil?
+        return nil unless response["customerAccountCustomFieldData"]
         found = response["customerAccountCustomFieldData"].select{|cfm| cfm["custom_field_id"] == field_id}
         found.first if found.any?
-      end
+      end      
 
       def create_account_custom_field_data(params)
         post('accountCustomFieldData', accountCustomFieldDatum: params)
